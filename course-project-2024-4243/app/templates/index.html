@@ -1,0 +1,65 @@
+{%extends 'base.html'%}
+
+{% block content %}
+<h1>Главная</h1>
+
+<h1>Наши тренеры:</h1>
+
+<table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>ФИО</th>
+            <th>Пол</th>
+            <th>Вес</th>
+            <th>Рост</th>
+            <th>Возраст</th>
+            <th>Ссылка на соцсети</th>
+            <th>достижения</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for coach in coaches %}
+        <tr>
+            <td>{{ coach[0] }} <a href="CO_profile/{{coach[0]}}" target="_blank" class="btn btn-outline-info">{{ 'перейти в профиль' }}</a></td>  
+            <td>{{ coach[1] }}</td>
+            <td>{{ coach[2] }}</td>
+            <td>{{ coach[3] }}</td>
+            <td>{{ coach[4] }}</td>
+            <td>{{ coach[5] }}</td>
+            <td>{{ coach[6] }}</td>
+            <td>{{ coach[7] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h1>Наши спортсмены:</h1>
+
+<table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>ФИО</th>
+            <th>Пол</th>
+            <th>Вес</th>
+            <th>Рост</th>
+            <th>Возраст</th>
+            <th>Ссылка на соцсети</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for athlete in athletes %}
+        <tr>
+            <td>{{ athlete[0] }} <a href="profile/{{athlete[0]}}" target="_blank" class="btn btn-outline-info">{{ 'перейти в профиль' }}</a></td>  
+            <td>{{ athlete[1] }}</td>
+            <td>{{ athlete[2] }}</td>
+            <td>{{ athlete[3] }}</td>
+            <td>{{ athlete[4] }}</td>
+            <td>{{ athlete[5] }}</td>
+            <td>{{ athlete[6] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

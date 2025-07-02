@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Редактировать профиль</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        {% if form.age.errors %}
+            {% for error in form.age.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.age.label }} {{ form.age(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.FIO.errors %}
+            {% for error in form.FIO.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.FIO.label }} {{ form.FIO(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.height.errors %}
+            {% for error in form.height.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.height.label }} {{ form.height(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.weight.errors %}
+            {% for error in form.weight.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.weight.label }} {{ form.weight(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.media.errors %}
+            {% for error in form.media.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.media.label }} {{ form.media(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.gender.errors %}
+            {% for error in form.gender.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.gender.label }} {{ form.gender(class="form-control bg-dark text-light border-secondary", style="width: 100px;") }}</div>
+
+        {% if current_user.role == 2 %}
+            {% if form.achv.errors %}
+                {% for error in form.achv.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            <div>{{ form.achv.label }} {{ form.achv(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+        {% endif %}
+
+        {{ form.submit(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}
+    </form>
+{% endblock %}

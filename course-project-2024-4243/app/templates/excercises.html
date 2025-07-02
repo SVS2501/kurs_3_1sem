@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Упражнения</h1>
+<table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            <th>упражнение</th>
+            <th>техника:</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for exc in excercises %}
+        <tr>
+            <td>{{ exc[0]}}</td>
+            <td>{{ exc[1] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

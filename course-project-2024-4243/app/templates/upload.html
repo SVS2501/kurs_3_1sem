@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Сделать публикацию</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">        
+            {% if form.nazv.errors %}
+                {% for error in form.nazv.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            {{ form.nazv.label }} {{ form.nazv(class="form-control bg-dark text-light border-secondary",style="width: 400px;") }}
+        </div>
+        <div class="mb-3">
+        {% if form.Text.errors %}
+            {% for error in form.Text.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        {{ form.Text(class="form-control form-control-lg bg-dark text-light border-secondary", style="width: 100%; height: 200px; resize: vertical;") }}
+        </div>
+        
+        {{ form.submit(class="form-control bg-dark text-light border-secondary", style="width: 100px;") }}
+    </form>
+{% endblock %}

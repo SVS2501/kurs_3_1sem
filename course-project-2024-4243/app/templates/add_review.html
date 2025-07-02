@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Оставить отзыв для публикации "{{ public_date }}"</h2>
+
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {% if form.comment.errors %}
+            {% for error in form.comment.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        {{ form.comment(class="form-control form-control-lg bg-dark text-light border-secondary") }}
+    </div>
+    </div>
+
+     <div class="mb-3">
+        {% if form.rating.errors %}
+            {% for error in form.rating.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        {{ form.rating(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}
+    </div>
+
+
+    <div class="mb-3">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% endblock %}

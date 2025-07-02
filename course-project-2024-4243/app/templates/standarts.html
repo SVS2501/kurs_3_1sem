@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Силовые стандарты</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>упражнение</th>
+            <th>техника:</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for standard in standards %}
+        <tr>
+            <td>{{ exc[0]}}</td>
+            <td>{{ exc[1] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    {% if excercise_names|length == 0 %}
+        <p>упражнений не найдено.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>упражнение</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for excercise_name in excercise_names %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ excercise_name[0] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

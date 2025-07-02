@@ -1,0 +1,1 @@
+py -m flask --app D:\kurs\myproject:app run --port 5000

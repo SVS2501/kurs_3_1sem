@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Силовые стандарты</h1>
+<table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            <th>упражнение</th>
+            <th>Уровень:</th>
+            <th>Вес</th>
+            <th>Количество повторений</th>
+            <th>Пол</th>
+            <th>Соотношение с весом тела</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for standard in standards %}
+        <tr>
+            <td>{{ standard[0] }}</td>
+            <td>{{ standard[1] }}</td>
+            <td>{{ standard[2] }}</td>
+            <td>{{ standard[3] }}</td>
+            <td>{{ standard[4] }}</td>
+            <td>{{ standard[5] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

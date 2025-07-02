@@ -1,0 +1,206 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<title>Профиль спортсмена</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Профиль тренера</h2>
+
+    <!-- Отображение данных профиля -->
+    <div class="card text-white bg-dark mb-3">
+        <div class="card-header">
+            <h4>Основные данные</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Имя:</strong> {{ fio }}</p>
+            <p><strong>Пол:</strong> {{ gender }}</p>
+            <p><strong>Возраст:</strong> {{ age }}</p>
+            <p><strong>Рост:</strong> {{ height }} см</p>
+            <p><strong>Вес:</strong> {{ weight }} кг</p>
+            <p><strong>Ссылка на соцсети:</strong> {{ socialmedia }} </p>
+            <p><strong>Индивидуальные достижения:</strong> {{ achv }}</p>
+        </div>
+    </div>
+
+    {% if current_user.username == profile_username and current_user.role == 2 %}
+    <!-- Кнопочка для добавления результата -->
+    <div class="mt-4">
+        <a href="/add_result" class="btn btn-success">Добавить результат</a>
+    </div>
+    <!-- Кнопочка для редактирования профиля -->
+    <div class="mt-4">
+        <a href="/edit" class="btn btn-info">Редактировать профиль</a>
+    </div>
+    <!-- Кнопочка для добавления публикации -->
+    <div class="mt-4">
+        <a href="/upload" class="btn btn-primary">Добавить публикацию</a>
+    </div>
+    {% endif %}
+
+</div>
+
+
+<!-- Результаты спортсмена -->
+<div class="card text-white bg-dark mt-4">
+    <div class="card-header">
+        <h4>результаты</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>Упражнение</th>
+                    <th>Вес (кг)</th>
+                    <th>Повторения</th>
+                    <th>Одноповторный максимум (1ПМ)</th>
+                    <th>Дата выполнения</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if results %}
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result[1] }}</td>
+                        <td>{{ result[2] }}</td>
+                        <td>{{ result[3] }}</td>
+                        <td>{{ result[4] }}</td>
+                        <td>{{ result[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="5">Нет результатов для отображения.</td></tr>
+                {% endif %}
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+
+<!-- Публикации -->
+<div class="card text-white bg-dark mt-4">
+    <div class="card-header">
+        <h4>Публикации</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Дата и время публикации</th>
+                    <th>Текст</th>
+                    <th>Оставить отзыв</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if posts %}
+                    {% for post in posts %}
+                    <tr>
+                        <td>{{ post[0] }}</td>
+                        <td>{{ post[1] }}</td>
+                        <td>{{ post[2] }}</td>
+                        <td>
+                            <!-- Кнопочка добавления оценки публикации -->
+                            <a href="/CO_profile/{{profile_username}}/add_rating/{{ format_datetime_for_url(post[1]) }}" target="_blank" class="btn btn-outline-primary">{{ 'Оставить отзыв' }}</a></td>  
+                            <!-- Заменяем пробелы и двоеточия на подчеркивание в дате для корректной работы ссылки -->
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="4">Нет результатов для отображения.</td></tr>
+                {% endif %}
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+<!-- Отзывы спортсменов -->
+<div class="card text-white bg-dark mt-4">
+    <div class="card-header">
+        <h4>Отзывы спортсменов</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>Название публикации</th>
+                    <th>Логин оценившего</th>
+                    <th>Логин автора</th>
+                    <th>Дата публикации</th>
+                    <th>Количество звёзд (от 1 до 5)</th>
+                    <th>Комментарии оценившего</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if ath_ratings %}
+                    {% for ath_rating in ath_ratings %}
+                        <tr>
+                            {% for post in posts %}
+                                {% if ath_rating[2] == post [1] %}
+                                    <td>{{ post[0] }}</td>
+                                {% endif %}
+                            {%endfor%}
+                            
+                            <td>{{ ath_rating[0] }} <a href="/profile/{{ath_rating[0]}}" target="_blank" class="btn btn-outline-info">{{ 'перейти в профиль' }}</a></td>
+                            <td>{{ ath_rating[1] }} </td>  
+                            <td>{{ ath_rating[2] }}</td>
+                            <td>{{ ath_rating[3] }}</td>
+                            <td>{{ ath_rating[4] }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="6">Нет результатов для отображения.</td></tr>
+                {% endif %}
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+
+<!-- Отзывы тренеров -->
+<div class="card text-white bg-dark mt-4">
+    <div class="card-header">
+        <h4>Отзывы тренеров</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>Название публикации</th>
+                    <th>Логин оценившего</th>
+                    <th>Логин автора</th>
+                    <th>Дата публикации</th>
+                    <th>Количество звёзд (от 1 до 5)</th>
+                    <th>Комментарии оценившего</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if coach_ratings %}
+                    {% for coach_rating in coach_ratings %}
+                    <tr>
+                        
+                        {% for post in posts %}
+                            {% if coach_rating[2] == post [1] %}
+                                <td>{{ post[0] }}</td>
+                            {% endif %}
+                        {%endfor%}
+
+                        <td>{{ coach_rating[0] }}<a href="/CO_profile/{{coach_rating[0]}}" target="_blank" class="btn btn-outline-info">{{ 'перейти в профиль' }}</a> </td>
+                        <td>{{ coach_rating[1] }}</td>  
+                        <td>{{ coach_rating[2] }}</td>
+                        <td>{{ coach_rating[3] }}</td>
+                        <td>{{ coach_rating[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="6">Нет результатов для отображения.</td></tr>
+                {% endif %}
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+</body>
+{% endblock %}

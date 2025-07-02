@@ -1,0 +1,76 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<title>Профиль спортсмена</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Профиль спортсмена</h2>
+
+    <!-- Отображение данных профиля -->
+    <div class="card text-white bg-dark mb-3">
+        <div class="card-header">
+            <h4>Основные данные</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Имя:</strong> {{ fio }}</p>
+            <p><strong>Пол:</strong> {{ gender }}</p>
+            <p><strong>Возраст:</strong> {{ age }}</p>
+            <p><strong>Рост:</strong> {{ height }} см</p>
+            <p><strong>Вес:</strong> {{ weight }} кг</p>
+            <p><strong>Ссылка на соцсети:</strong>{{ socialmedia }}</p>
+        </div>
+    </div>
+
+    
+    {% if current_user.username == profile_username %}
+    <!-- Кнопочка для добавления результата -->
+    <div class="mt-4">
+        <a href="/add_result" class="btn btn-success">Добавить результат</a>
+    </div>
+    <!-- Кнопочка для редактирования профиля -->
+    <div class="mt-4">
+        <a href="/edit" class="btn btn-info">Редактировать профиль</a>
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- Результаты спортсмена -->
+<div class="card text-white bg-dark mt-4">
+    <div class="card-header">
+        <h4>результаты</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>Упражнение</th>
+                    <th>Вес (кг)</th>
+                    <th>Повторения</th>
+                    <th>Одноповторный максимум (1ПМ)</th>
+                    <th>Дата выполнения</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if results %}
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result[1] }}</td>
+                        <td>{{ result[2] }}</td>
+                        <td>{{ result[3] }}</td>
+                        <td>{{ result[4] }}</td>
+                        <td>{{ result[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="5">Нет результатов для отображения.</td></tr>
+                {% endif %}
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+</body>
+{% endblock %}

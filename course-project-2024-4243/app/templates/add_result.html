@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Добавить результат</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        {% if form.excercise.errors %}
+            {% for error in form.username.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.excercise.label }} {{ form.excercise(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.weight.errors %}
+            {% for error in form.weight.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.weight.label }} {{ form.weight(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+
+        {% if form.reps.errors %}
+            {% for error in form.reps.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>{{ form.reps.label }} {{ form.reps(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}</div>
+        {{ form.submit(class="form-control bg-dark text-light border-secondary", style="width: 300px;") }}
+    </form>
+{% endblock %}
